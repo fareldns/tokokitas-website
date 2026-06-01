@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Toko Kita – Stationery & Photocopy Yogyakarta</title>
+  <meta name="description" content="Pusat alat tulis, fotokopi, dan layanan komputer terlengkap di Yogyakarta. Jl. Ngasem No. 20 Yogyakarta." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Baloo+2:wght@400;600;700;800&display=swap" rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            pink:    { DEFAULT: '#DB2777', light: '#FDF2F8', dark: '#9D174D' },
+            sky:     { DEFAULT: '#38BDF8', light: '#F0F9FF', dark: '#0EA5E9' },
+            mustard: { DEFAULT: '#F59E0B', light: '#FFFBEB', dark: '#D97706' },
+            green:   { DEFAULT: '#22C55E', light: '#F0FDF4', dark: '#16A34A' },
+          },
+          fontFamily: {
+            display: ['"Baloo 2"', 'cursive'],
+            body:    ['"Nunito"', 'sans-serif'],
+          },
+        }
+      }
+    }
+  </script>
+  <style>
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Nunito', sans-serif; background: #fff; }
+
+    /* ── Navbar ── */
+    #navbar {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 50;
+      transition: background .3s, box-shadow .3s;
+    }
+    #navbar.scrolled {
+      background: rgba(255,255,255,.95);
+      backdrop-filter: blur(12px);
+      box-shadow: 0 2px 20px rgba(0,0,0,.08);
+    }
+
+    /* ── Hero ── */
+    .hero-bg {
+      background: linear-gradient(135deg, #FDF2F8 0%, #F0F9FF 50%, #FDF8F0 100%);
+      position: relative; overflow: hidden;
+    }
+    .hero-blob {
+      position: absolute; border-radius: 50%; opacity: .35; filter: blur(60px);
+      animation: blob-drift 8s ease-in-out infinite alternate;
+    }
+    @keyframes blob-drift {
+      from { transform: translate(0,0) scale(1); }
+      to   { transform: translate(30px,20px) scale(1.08); }
+    }
+
+    /* ── Service Cards ── */
+    .service-card {
+      transition: transform .3s, box-shadow .3s;
+      border-radius: 1.5rem;
+    }
+    .service-card:hover { transform: translateY(-8px); }
+
+    /* ── Testimonial ── */
+    .testi-card {
+      border-radius: 1.5rem;
+      transition: transform .3s, box-shadow .3s;
+    }
+    .testi-card:hover { transform: translateY(-6px); }
+
+    /* ── Floating WhatsApp ── */
+    .fab-wa {
+      position: fixed; bottom: 24px; right: 24px; z-index: 999;
+      width: 56px; height: 56px; border-radius: 50%;
+      background: #25D366;
+      box-shadow: 0 4px 20px rgba(37,211,102,.5);
+      display: flex; align-items: center; justify-content: center;
+      animation: pulse-wa 2.5s ease-in-out infinite;
+      transition: transform .2s;
+    }
+    .fab-wa:hover { transform: scale(1.1); }
+    @keyframes pulse-wa {
+      0%,100% { box-shadow: 0 4px 20px rgba(37,211,102,.5); }
+      50%      { box-shadow: 0 4px 32px rgba(37,211,102,.85); }
+    }
+
+    /* ── Section entrance ── */
+    .reveal { opacity: 0; transform: translateY(32px); transition: opacity .7s, transform .7s; }
+    .reveal.visible { opacity: 1; transform: none; }
+
+    /* ── Mobile Menu ── */
+    #mobile-menu { transition: max-height .4s ease, opacity .4s; max-height: 0; overflow: hidden; opacity: 0; }
+    #mobile-menu.open { max-height: 320px; opacity: 1; }
+
+    /* ── Stars ── */
+    .stars { color: #FBBF24; letter-spacing: .05em; }
+
+    /* ── Divider wave ── */
+    .wave { display: block; width: 100%; overflow: hidden; line-height: 0; }
+  </style>
+</head>
+
+<body>
+
+<!-- ════════════════════════════════════════
+     FLOATING WHATSAPP BUTTON
+════════════════════════════════════════ -->
+<a href="https://wa.me/6281393269161" target="_blank" rel="noopener" class="fab-wa" aria-label="Chat WhatsApp">
+  <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="white" viewBox="0 0 24 24">
+    <path d="M20.52 3.48A11.93 11.93 0 0 0 12.01 0C5.37 0 .01 5.37.01 12c0 2.12.55 4.19 1.6 6.01L0 24l6.15-1.61A11.96 11.96 0 0 0 12 24c6.63 0 12-5.37 12-12 0-3.2-1.25-6.22-3.48-8.52zM12 22c-1.85 0-3.67-.5-5.24-1.44l-.38-.22-3.88 1.02 1.03-3.77-.25-.4A9.95 9.95 0 0 1 2 12C2 6.48 6.48 2 12 2c2.67 0 5.18 1.04 7.07 2.93A9.94 9.94 0 0 1 22 12c0 5.52-4.48 10-10 10zm5.47-7.42c-.3-.15-1.77-.87-2.04-.97-.27-.1-.47-.15-.67.15s-.77.97-.94 1.17c-.17.2-.35.22-.65.07a8.17 8.17 0 0 1-2.4-1.48 9 9 0 0 1-1.66-2.07c-.17-.3-.02-.46.13-.61.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.07-.15-.67-1.6-.91-2.2-.24-.57-.49-.5-.67-.51h-.57c-.2 0-.52.07-.8.37s-1.04 1.02-1.04 2.48 1.07 2.87 1.22 3.07c.15.2 2.1 3.2 5.08 4.49.71.31 1.27.49 1.7.63.72.23 1.37.2 1.89.12.57-.09 1.77-.72 2.02-1.42.25-.7.25-1.3.17-1.42-.07-.13-.27-.2-.57-.35z"/>
+  </svg>
+</a>
+
+<!-- ════════════════════════════════════════
+     NAVBAR
+════════════════════════════════════════ -->
+<nav id="navbar" class="py-3 px-4 md:px-8">
+  <div class="max-w-6xl mx-auto flex items-center justify-between">
+
+    <!-- Logo -->
+    <a href="#beranda" class="flex items-center gap-3 group">
+      <img src="Logo Toko Mentah Rev 1.jpg" alt="Logo Toko Kita" class="h-10 w-10 object-contain rounded-xl shadow" onerror="this.style.display='none'; document.getElementById('logo-fallback').style.display='flex';" />
+      <div id="logo-fallback" style="display:none" class="h-10 w-10 rounded-xl bg-gradient-to-br from-pink-DEFAULT to-sky-DEFAULT flex items-center justify-center text-white font-display font-bold text-lg">TK</div>
+      <div class="leading-tight">
+        <span class="font-display font-bold text-gray-900 text-lg block leading-none">Toko Kita</span>
+        <span class="text-xs text-gray-500 font-semibold tracking-wide">Stationery & Photocopy</span>
+      </div>
+    </a>
+
+    <!-- Desktop Nav -->
+    <ul class="hidden md:flex items-center gap-1 font-semibold text-sm">
+      <li><a href="#beranda"  class="nav-link px-4 py-2 rounded-full hover:bg-pink-light text-gray-700 hover:text-pink-dark transition-colors">Beranda</a></li>
+      <li><a href="#layanan"  class="nav-link px-4 py-2 rounded-full hover:bg-sky-light text-gray-700 hover:text-sky-dark transition-colors">Layanan</a></li>
+      <li><a href="#ulasan"   class="nav-link px-4 py-2 rounded-full hover:bg-mustard-light text-gray-700 hover:text-mustard-dark transition-colors">Ulasan</a></li>
+      <li><a href="#kontak"   class="nav-link px-4 py-2 rounded-full hover:bg-green-light text-gray-700 hover:text-green-dark transition-colors">Kontak</a></li>
+    </ul>
+
+    <!-- CTA -->
+    <a href="https://wa.me/6281393269161" target="_blank" rel="noopener"
+       class="hidden md:flex items-center gap-2 bg-pink-dark hover:bg-pink-DEFAULT text-white font-extrabold px-5 py-2.5 rounded-full text-sm transition-all shadow-md hover:shadow-lg" style="background-color:#9D174D;"
+      <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M20.52 3.48A11.93 11.93 0 0 0 12.01 0C5.37 0 .01 5.37.01 12c0 2.12.55 4.19 1.6 6.01L0 24l6.15-1.61A11.96 11.96 0 0 0 12 24c6.63 0 12-5.37 12-12 0-3.2-1.25-6.22-3.48-8.52zM12 22c-1.85 0-3.67-.5-5.24-1.44l-.38-.22-3.88 1.02 1.03-3.77-.25-.4A9.95 9.95 0 0 1 2 12C2 6.48 6.48 2 12 2c2.67 0 5.18 1.04 7.07 2.93A9.94 9.94 0 0 1 22 12c0 5.52-4.48 10-10 10zm5.47-7.42c-.3-.15-1.77-.87-2.04-.97-.27-.1-.47-.15-.67.15s-.77.97-.94 1.17c-.17.2-.35.22-.65.07a8.17 8.17 0 0 1-2.4-1.48 9 9 0 0 1-1.66-2.07c-.17-.3-.02-.46.13-.61.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.07-.15-.67-1.6-.91-2.2-.24-.57-.49-.5-.67-.51h-.57c-.2 0-.52.07-.8.37s-1.04 1.02-1.04 2.48 1.07 2.87 1.22 3.07c.15.2 2.1 3.2 5.08 4.49.71.31 1.27.49 1.7.63.72.23 1.37.2 1.89.12.57-.09 1.77-.72 2.02-1.42.25-.7.25-1.3.17-1.42-.07-.13-.27-.2-.57-.35z"/></svg>
+      Chat WA
+    </a>
+
+    <!-- Hamburger -->
+    <button id="menu-btn" class="md:hidden p-2 rounded-lg hover:bg-gray-100" aria-label="Menu">
+      <svg id="icon-open"  class="w-6 h-6 text-gray-700" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"/></svg>
+      <svg id="icon-close" class="w-6 h-6 text-gray-700 hidden" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
+    </button>
+  </div>
+
+  <!-- Mobile Menu -->
+  <div id="mobile-menu" class="md:hidden bg-white/95 backdrop-blur-md border-t border-gray-100 mt-2">
+    <ul class="flex flex-col py-4 px-6 gap-1 font-semibold">
+      <li><a href="#beranda" class="mob-link block py-2.5 px-4 rounded-xl text-gray-700 hover:bg-pink-light hover:text-pink-dark transition-colors">Beranda</a></li>
+      <li><a href="#layanan" class="mob-link block py-2.5 px-4 rounded-xl text-gray-700 hover:bg-sky-light hover:text-sky-dark transition-colors">Layanan</a></li>
+      <li><a href="#ulasan"  class="mob-link block py-2.5 px-4 rounded-xl text-gray-700 hover:bg-mustard-light hover:text-mustard-dark transition-colors">Ulasan</a></li>
+      <li><a href="#kontak"  class="mob-link block py-2.5 px-4 rounded-xl text-gray-700 hover:bg-green-light hover:text-green-dark transition-colors">Kontak</a></li>
+      <li class="pt-2">
+        <a href="https://wa.me/6281393269161" target="_blank" class="flex items-center justify-center gap-2 text-white font-extrabold text-base py-3 rounded-2xl transition-all" style="background-color:#9D174D;">
+          <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M20.52 3.48A11.93 11.93 0 0 0 12.01 0C5.37 0 .01 5.37.01 12c0 2.12.55 4.19 1.6 6.01L0 24l6.15-1.61A11.96 11.96 0 0 0 12 24c6.63 0 12-5.37 12-12 0-3.2-1.25-6.22-3.48-8.52z"/></svg>
+          Hubungi via WhatsApp
+        </a>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+<main>
+
+<!-- ════════════════════════════════════════
+     HERO
+════════════════════════════════════════ -->
+<section id="beranda" class="hero-bg min-h-screen flex items-center pt-20">
+  <!-- Decorative blobs -->
+  <div class="hero-blob w-72 h-72 bg-pink-DEFAULT top-10 right-10" style="animation-delay:.5s"></div>
+  <div class="hero-blob w-56 h-56 bg-sky-DEFAULT bottom-20 left-5" style="animation-delay:1.5s"></div>
+  <div class="hero-blob w-40 h-40 bg-mustard-DEFAULT top-1/2 left-1/3" style="animation-delay:2.5s"></div>
+
+  <div class="max-w-6xl mx-auto px-6 py-20 grid md:grid-cols-2 gap-12 items-center relative z-10">
+
+    <!-- Text -->
+    <div>
+      <div class="inline-flex items-center gap-2 bg-white/80 backdrop-blur rounded-full px-4 py-2 text-sm font-bold text-pink-dark shadow mb-6">
+        <span class="w-2 h-2 bg-green-DEFAULT rounded-full animate-pulse inline-block"></span>
+        Buka Setiap Hari · Jl. Ngasem No. 20 Yogyakarta
+      </div>
+
+      <h1 class="font-display font-extrabold text-4xl md:text-5xl lg:text-6xl text-gray-900 leading-tight mb-4">
+        Pusat Alat Tulis &<br/>
+        <span class="text-pink-DEFAULT">Fotokopi</span><br/>
+        <span class="text-sky-dark">Terlengkap</span> di<br/>
+        Yogyakarta
+      </h1>
+
+      <p class="text-slate-800 text-lg mb-8 leading-relaxed max-w-md font-semibold">
+        Semua kebutuhan kantor & sekolah tersedia di sini — dari alat tulis, fotokopi, hingga layanan print & komputer. Cepat, lengkap, dan terpercaya.
+      </p>
+
+      <div class="flex flex-wrap gap-4">
+        <a href="https://wa.me/6281393269161" target="_blank" rel="noopener"
+           class="inline-flex items-center gap-3 text-white font-extrabold px-8 py-4 rounded-2xl shadow-lg hover:shadow-xl transition-all text-lg" style="background-color:#9D174D;" onmouseover="this.style.backgroundColor='#7F1D3F'" onmouseout="this.style.backgroundColor='#9D174D'">
+          <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M20.52 3.48A11.93 11.93 0 0 0 12.01 0C5.37 0 .01 5.37.01 12c0 2.12.55 4.19 1.6 6.01L0 24l6.15-1.61A11.96 11.96 0 0 0 12 24c6.63 0 12-5.37 12-12 0-3.2-1.25-6.22-3.48-8.52z"/></svg>
+          Hubungi Kami
+        </a>
+        <a href="#layanan"
+           class="inline-flex items-center gap-2 bg-white hover:bg-sky-light text-sky-dark font-bold px-8 py-4 rounded-2xl shadow-md hover:shadow-lg transition-all text-base border border-sky-DEFAULT/30">
+          Lihat Layanan
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+        </a>
+      </div>
+
+      <!-- Stats -->
+      <div class="flex gap-8 mt-10 pt-8 border-t border-gray-200">
+        <div>
+          <p class="font-display font-extrabold text-2xl text-pink-DEFAULT">1000+</p>
+          <p class="text-sm text-gray-500 font-semibold">Produk Tersedia</p>
+        </div>
+        <div>
+          <p class="font-display font-extrabold text-2xl text-sky-dark">⭐ 4.9</p>
+          <p class="text-sm text-gray-500 font-semibold">Rating Google</p>
+        </div>
+        <div>
+          <p class="font-display font-extrabold text-2xl text-mustard-dark">5+</p>
+          <p class="text-sm text-gray-500 font-semibold">Tahun Melayani</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Hero Image / Logo showcase -->
+    <div class="flex justify-center relative">
+      <div class="relative">
+        <!-- Big logo display -->
+        <div class="w-72 h-72 md:w-80 md:h-80 rounded-3xl bg-white shadow-2xl flex items-center justify-center p-8 relative z-10">
+          <img src="Logo Toko Mentah Rev 1.jpg" alt="Toko Kita Logo" class="w-full h-full object-contain drop-shadow-lg"
+               onerror="this.src=''; this.style.display='none'; document.getElementById('hero-logo-fallback').style.display='flex';" />
+          <div id="hero-logo-fallback" style="display:none" class="w-full h-full flex flex-col items-center justify-center">
+            <div class="w-32 h-32 rounded-2xl bg-gradient-to-br from-pink-DEFAULT via-sky-DEFAULT to-mustard-DEFAULT flex items-center justify-center text-white font-display font-black text-5xl shadow-lg">KK</div>
+            <p class="mt-4 font-display font-bold text-gray-700 text-lg text-center">Toko Kita</p>
+          </div>
+        </div>
+        <!-- Decorative accents -->
+        <div class="absolute -top-4 -right-4 w-16 h-16 bg-pink-DEFAULT rounded-2xl opacity-70 rotate-12 z-0"></div>
+        <div class="absolute -bottom-4 -left-4 w-14 h-14 bg-sky-DEFAULT rounded-xl opacity-70 -rotate-6 z-0"></div>
+        <div class="absolute top-1/2 -right-8 w-10 h-10 bg-mustard-DEFAULT rounded-full opacity-80 z-0"></div>
+        <!-- Service pills -->
+        <div class="absolute -left-16 top-10 bg-white rounded-2xl shadow-lg px-4 py-2.5 flex items-center gap-2 text-sm font-bold text-gray-700">
+          <span class="text-xl">📋</span> Fotokopi
+        </div>
+        <div class="absolute -right-16 bottom-14 bg-white rounded-2xl shadow-lg px-4 py-2.5 flex items-center gap-2 text-sm font-bold text-gray-700">
+          <span class="text-xl">🖨️</span> Printing
+        </div>
+        <div class="absolute -left-14 bottom-6 bg-white rounded-2xl shadow-lg px-4 py-2.5 flex items-center gap-2 text-sm font-bold text-gray-700">
+          <span class="text-xl">✏️</span> ATK
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Wave divider -->
+<div class="wave -mt-1 bg-white">
+  <svg viewBox="0 0 1440 60" xmlns="http://www.w3.org/2000/svg" style="background:#F0F9FF">
+    <path fill="white" d="M0,40 C360,80 1080,0 1440,40 L1440,60 L0,60 Z"/>
+  </svg>
+</div>
+
+<!-- ════════════════════════════════════════
+     LAYANAN
+════════════════════════════════════════ -->
+<section id="layanan" class="py-24 bg-sky-light">
+  <div class="max-w-6xl mx-auto px-6">
+
+    <div class="text-center mb-16 reveal">
+      <span class="inline-block bg-sky-DEFAULT/20 text-sky-dark font-bold px-4 py-1.5 rounded-full text-sm mb-4 tracking-wide">APA YANG KAMI TAWARKAN</span>
+      <h2 class="font-display font-extrabold text-4xl md:text-5xl text-gray-900 mb-4">Layanan Kami</h2>
+      <p class="text-gray-500 text-lg max-w-xl mx-auto">Tiga pilar utama yang membuat Toko Kita menjadi pilihan terpercaya di Yogyakarta.</p>
+    </div>
+
+    <div class="grid md:grid-cols-3 gap-8">
+
+      <!-- Card 1: Stationery -->
+      <div class="service-card bg-white p-8 shadow-xl reveal" style="border-top: 5px solid #DB2777;">
+        <div class="w-16 h-16 bg-pink-light rounded-2xl flex items-center justify-center mb-6 shadow">
+          <svg class="w-8 h-8 text-pink-DEFAULT" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"/>
+          </svg>
+        </div>
+        <h3 class="font-display font-extrabold text-2xl text-gray-900 mb-3">Alat Tulis (ATK)</h3>
+        <p class="text-gray-500 leading-relaxed mb-6">Lengkapi kebutuhan kantor dan sekolah Anda. Tersedia pulpen, pensil, buku, map, kertas HVS, staples, tinta, dan ratusan item alat tulis lainnya.</p>
+        <ul class="space-y-2 text-sm text-gray-600 font-semibold">
+          <li class="flex items-center gap-2"><span class="w-5 h-5 bg-pink-light rounded-full flex items-center justify-center text-pink-DEFAULT text-xs">✓</span> Perlengkapan kantor & sekolah</li>
+          <li class="flex items-center gap-2"><span class="w-5 h-5 bg-pink-light rounded-full flex items-center justify-center text-pink-DEFAULT text-xs">✓</span> Kertas & amplop berbagai ukuran</li>
+          <li class="flex items-center gap-2"><span class="w-5 h-5 bg-pink-light rounded-full flex items-center justify-center text-pink-DEFAULT text-xs">✓</span> Aksesoris meja & file organizer</li>
+        </ul>
+      </div>
+
+      <!-- Card 2: Fotokopi (highlighted) -->
+      <div class="service-card bg-gray-900 p-8 shadow-2xl text-white reveal" style="transform: translateY(-12px); border: 2px solid #DB2777;">
+        <div class="inline-block bg-pink-DEFAULT/20 border border-pink-DEFAULT/40 rounded-full px-3 py-1 text-xs font-bold mb-4 tracking-wide text-pink-DEFAULT">PALING POPULER</div>
+        <div class="w-16 h-16 bg-pink-DEFAULT/15 rounded-2xl flex items-center justify-center mb-6 shadow border border-pink-DEFAULT/30">
+          <svg class="w-8 h-8 text-pink-DEFAULT" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/>
+          </svg>
+        </div>
+        <h3 class="font-display font-extrabold text-2xl mb-3 text-white">Jasa Fotokopi</h3>
+        <p class="text-gray-300 leading-relaxed mb-6">Fotokopi cepat, jernih, dan hemat. Melayani hitam-putih maupun berwarna, dari 1 lembar hingga ratusan eksemplar dokumen.</p>
+        <ul class="space-y-2 text-sm text-gray-200 font-semibold">
+          <li class="flex items-center gap-2"><span class="w-5 h-5 bg-pink-DEFAULT/25 rounded-full flex items-center justify-center text-pink-DEFAULT text-xs">✓</span> Fotokopi hitam-putih & warna</li>
+          <li class="flex items-center gap-2"><span class="w-5 h-5 bg-pink-DEFAULT/25 rounded-full flex items-center justify-center text-pink-DEFAULT text-xs">✓</span> Jilid spiral & soft cover</li>
+          <li class="flex items-center gap-2"><span class="w-5 h-5 bg-pink-DEFAULT/25 rounded-full flex items-center justify-center text-pink-DEFAULT text-xs">✓</span> Laminating dokumen & foto</li>
+        </ul>
+        <a href="https://wa.me/6281393269161" target="_blank" class="inline-block mt-6 bg-pink-DEFAULT hover:bg-pink-dark text-white font-bold px-6 py-2.5 rounded-xl text-sm transition-colors shadow">Pesan Sekarang →</a>
+      </div>
+
+      <!-- Card 3: Komputer & Print -->
+      <div class="service-card bg-white p-8 shadow-xl reveal" style="border-top: 5px solid #38BDF8;">
+        <div class="w-16 h-16 bg-sky-light rounded-2xl flex items-center justify-center mb-6 shadow">
+          <svg class="w-8 h-8 text-sky-DEFAULT" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+          </svg>
+        </div>
+        <h3 class="font-display font-extrabold text-2xl text-gray-900 mb-3">Komputer & Print</h3>
+        <p class="text-gray-500 leading-relaxed mb-6">Layanan pengetikan, desain sederhana, dan cetak dokumen. Tidak punya komputer? Tenang, kami siap bantu dengan cepat dan terjangkau.</p>
+        <ul class="space-y-2 text-sm text-gray-600 font-semibold">
+          <li class="flex items-center gap-2"><span class="w-5 h-5 bg-sky-light rounded-full flex items-center justify-center text-sky-dark text-xs">✓</span> Pengetikan & edit dokumen</li>
+          <li class="flex items-center gap-2"><span class="w-5 h-5 bg-sky-light rounded-full flex items-center justify-center text-sky-dark text-xs">✓</span> Print A4, A3, foto & banner</li>
+          <li class="flex items-center gap-2"><span class="w-5 h-5 bg-sky-light rounded-full flex items-center justify-center text-sky-dark text-xs">✓</span> Scan dokumen & kirim email</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- Wave divider -->
+<div class="wave bg-sky-light">
+  <svg viewBox="0 0 1440 60" xmlns="http://www.w3.org/2000/svg">
+    <path fill="white" d="M0,20 C480,60 960,0 1440,20 L1440,60 L0,60 Z"/>
+  </svg>
+</div>
+
+<!-- ════════════════════════════════════════
+     ULASAN / TESTIMONIALS
+════════════════════════════════════════ -->
+<section id="ulasan" class="py-24 bg-white">
+  <div class="max-w-6xl mx-auto px-6">
+
+    <div class="text-center mb-16 reveal">
+      <span class="inline-block bg-mustard-DEFAULT/20 text-mustard-dark font-bold px-4 py-1.5 rounded-full text-sm mb-4 tracking-wide">KATA MEREKA</span>
+      <h2 class="font-display font-extrabold text-4xl md:text-5xl text-gray-900 mb-4">Ulasan Pelanggan</h2>
+      <p class="text-gray-500 text-lg max-w-xl mx-auto">Kepercayaan pelanggan adalah kebanggaan kami.</p>
+      <div class="flex items-center justify-center gap-2 mt-4">
+        <div class="stars text-2xl">★★★★★</div>
+        <span class="font-display font-bold text-xl text-gray-800">4.9</span>
+        <span class="text-gray-400 text-sm font-semibold">di Google Maps</span>
+      </div>
+    </div>
+
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6">
+
+      <!-- Ulasan Asli 1 – Alifiya Dhiya Anindita -->
+      <div class="testi-card bg-pink-light border border-pink-DEFAULT/20 p-6 shadow-lg reveal">
+        <div class="flex items-center justify-between mb-1">
+          <div class="stars text-base">★★★★★</div>
+          <span class="text-xs text-gray-400 font-semibold">4 bln lalu</span>
+        </div>
+        <p class="text-gray-800 text-sm leading-relaxed mb-5 font-semibold italic">"aku udah berkali-kali ngeprint n fotokopi disini dan selalu memuaskan, kakaknya baik n ramahh, even di chat whatsapp juga ramah banget not tipikal tukang fotokopi yg bikin gk mood, semoga ttp konsisten n bintang seribu buat toko kita"</p>
+        <div class="flex items-center gap-3">
+          <div class="w-9 h-9 rounded-full flex items-center justify-center text-white font-bold text-sm flex-shrink-0" style="background-color:#9D174D;">AD</div>
+          <div>
+            <p class="font-bold text-gray-900 text-sm">Alifiya Dhiya Anindita</p>
+            <div class="flex items-center gap-1 mt-0.5">
+              <svg class="w-3 h-3" viewBox="0 0 24 24" fill="none"><path d="M21.805 10.023H12v4.05h5.617c-.242 1.237-.98 2.285-2.088 2.988v2.486h3.381c1.978-1.823 3.12-4.507 3.12-7.69 0-.511-.047-1.007-.125-1.474-.001-.12-.1-.36-.1-.36z" fill="#4285F4"/><path d="M12 22c2.785 0 5.122-.924 6.83-2.503l-3.382-2.486c-.924.619-2.107.985-3.448.985-2.652 0-4.898-1.79-5.7-4.196H2.81v2.566A10.997 10.997 0 0 0 12 22z" fill="#34A853"/><path d="M6.3 13.8A6.6 6.6 0 0 1 5.956 12c0-.625.108-1.233.344-1.8V7.634H2.81A11.003 11.003 0 0 0 1 12c0 1.757.42 3.42 1.81 4.366L6.3 13.8z" fill="#FBBC05"/><path d="M12 5.804c1.493 0 2.833.514 3.886 1.52l2.914-2.914C16.918 2.793 14.582 2 12 2A10.997 10.997 0 0 0 2.81 7.634L6.3 10.2C7.102 7.794 9.348 5.804 12 5.804z" fill="#EA4335"/></svg>
+              <span class="text-xs text-gray-400">Google Review</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Ulasan Asli 2 – Stefanie Vitasya -->
+      <div class="testi-card bg-sky-light border border-sky-DEFAULT/20 p-6 shadow-lg reveal" style="transition-delay:.08s">
+        <div class="flex items-center justify-between mb-1">
+          <div class="stars text-base">★★★★★</div>
+          <span class="text-xs text-gray-400 font-semibold">1 thn lalu</span>
+        </div>
+        <p class="text-gray-800 text-sm leading-relaxed mb-5 font-semibold italic">"Deket rumah jadi bisa sambil balik 😊 bisa whatsapp jugaa buat pesen, tinggal ambil dehhh. Yang pasti ada kokore dengan harga yang aga lebih murah xixixixi"</p>
+        <div class="flex items-center gap-3">
+          <div class="w-9 h-9 rounded-full flex items-center justify-center text-white font-bold text-sm flex-shrink-0" style="background-color:#0EA5E9;">SV</div>
+          <div>
+            <p class="font-bold text-gray-900 text-sm">Stefanie Vitasya</p>
+            <div class="flex items-center gap-1 mt-0.5">
+              <svg class="w-3 h-3" viewBox="0 0 24 24" fill="none"><path d="M21.805 10.023H12v4.05h5.617c-.242 1.237-.98 2.285-2.088 2.988v2.486h3.381c1.978-1.823 3.12-4.507 3.12-7.69 0-.511-.047-1.007-.125-1.474-.001-.12-.1-.36-.1-.36z" fill="#4285F4"/><path d="M12 22c2.785 0 5.122-.924 6.83-2.503l-3.382-2.486c-.924.619-2.107.985-3.448.985-2.652 0-4.898-1.79-5.7-4.196H2.81v2.566A10.997 10.997 0 0 0 12 22z" fill="#34A853"/><path d="M6.3 13.8A6.6 6.6 0 0 1 5.956 12c0-.625.108-1.233.344-1.8V7.634H2.81A11.003 11.003 0 0 0 1 12c0 1.757.42 3.42 1.81 4.366L6.3 13.8z" fill="#FBBC05"/><path d="M12 5.804c1.493 0 2.833.514 3.886 1.52l2.914-2.914C16.918 2.793 14.582 2 12 2A10.997 10.997 0 0 0 2.81 7.634L6.3 10.2C7.102 7.794 9.348 5.804 12 5.804z" fill="#EA4335"/></svg>
+              <span class="text-xs text-gray-400">Google Review</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Ulasan Asli 3 – Vidya Ningrum -->
+      <div class="testi-card bg-mustard-light border border-mustard-DEFAULT/30 p-6 shadow-lg reveal" style="transition-delay:.16s">
+        <div class="flex items-center justify-between mb-1">
+          <div class="stars text-base">★★★★★</div>
+          <span class="text-xs text-gray-400 font-semibold">1 thn lalu</span>
+        </div>
+        <p class="text-gray-800 text-sm leading-relaxed mb-5 font-semibold italic">"Pelayanan nya sangat cepat.. Pegawainya ramah...alat tulisnya lengkap"</p>
+        <div class="flex items-center gap-3">
+          <div class="w-9 h-9 rounded-full flex items-center justify-center text-white font-bold text-sm flex-shrink-0" style="background-color:#D97706;">VN</div>
+          <div>
+            <p class="font-bold text-gray-900 text-sm">Vidya Ningrum</p>
+            <div class="flex items-center gap-1 mt-0.5">
+              <svg class="w-3 h-3" viewBox="0 0 24 24" fill="none"><path d="M21.805 10.023H12v4.05h5.617c-.242 1.237-.98 2.285-2.088 2.988v2.486h3.381c1.978-1.823 3.12-4.507 3.12-7.69 0-.511-.047-1.007-.125-1.474-.001-.12-.1-.36-.1-.36z" fill="#4285F4"/><path d="M12 22c2.785 0 5.122-.924 6.83-2.503l-3.382-2.486c-.924.619-2.107.985-3.448.985-2.652 0-4.898-1.79-5.7-4.196H2.81v2.566A10.997 10.997 0 0 0 12 22z" fill="#34A853"/><path d="M6.3 13.8A6.6 6.6 0 0 1 5.956 12c0-.625.108-1.233.344-1.8V7.634H2.81A11.003 11.003 0 0 0 1 12c0 1.757.42 3.42 1.81 4.366L6.3 13.8z" fill="#FBBC05"/><path d="M12 5.804c1.493 0 2.833.514 3.886 1.52l2.914-2.914C16.918 2.793 14.582 2 12 2A10.997 10.997 0 0 0 2.81 7.634L6.3 10.2C7.102 7.794 9.348 5.804 12 5.804z" fill="#EA4335"/></svg>
+              <span class="text-xs text-gray-400">Google Review</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Ulasan Asli 4 – ed kusuma -->
+      <div class="testi-card bg-green-light border border-green-DEFAULT/30 p-6 shadow-lg reveal" style="transition-delay:.24s">
+        <div class="flex items-center justify-between mb-1">
+          <div class="stars text-base">★★★★★</div>
+          <span class="text-xs text-gray-400 font-semibold">1 thn lalu</span>
+        </div>
+        <p class="text-gray-800 text-sm leading-relaxed mb-5 font-semibold italic">"perlengkapan alat2 tulisnya lengkap, bagus2, harganya juga ramah dikantong, pelayanannya memuaskan"</p>
+        <div class="flex items-center gap-3">
+          <div class="w-9 h-9 rounded-full flex items-center justify-center text-white font-bold text-sm flex-shrink-0" style="background-color:#16A34A;">EK</div>
+          <div>
+            <p class="font-bold text-gray-900 text-sm">ed kusuma</p>
+            <div class="flex items-center gap-1 mt-0.5">
+              <svg class="w-3 h-3" viewBox="0 0 24 24" fill="none"><path d="M21.805 10.023H12v4.05h5.617c-.242 1.237-.98 2.285-2.088 2.988v2.486h3.381c1.978-1.823 3.12-4.507 3.12-7.69 0-.511-.047-1.007-.125-1.474-.001-.12-.1-.36-.1-.36z" fill="#4285F4"/><path d="M12 22c2.785 0 5.122-.924 6.83-2.503l-3.382-2.486c-.924.619-2.107.985-3.448.985-2.652 0-4.898-1.79-5.7-4.196H2.81v2.566A10.997 10.997 0 0 0 12 22z" fill="#34A853"/><path d="M6.3 13.8A6.6 6.6 0 0 1 5.956 12c0-.625.108-1.233.344-1.8V7.634H2.81A11.003 11.003 0 0 0 1 12c0 1.757.42 3.42 1.81 4.366L6.3 13.8z" fill="#FBBC05"/><path d="M12 5.804c1.493 0 2.833.514 3.886 1.52l2.914-2.914C16.918 2.793 14.582 2 12 2A10.997 10.997 0 0 0 2.81 7.634L6.3 10.2C7.102 7.794 9.348 5.804 12 5.804z" fill="#EA4335"/></svg>
+              <span class="text-xs text-gray-400">Google Review</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Ulasan Asli 5 – F Arfian -->
+      <div class="testi-card border p-6 shadow-lg reveal" style="transition-delay:.32s; background-color:#FFF7F0; border-color:#FED7AA;">
+        <div class="flex items-center justify-between mb-1">
+          <div class="stars text-base">★★★★★</div>
+          <span class="text-xs text-gray-400 font-semibold">1 thn lalu</span>
+        </div>
+        <p class="text-gray-800 text-sm leading-relaxed mb-5 font-semibold italic">"Toko Kita Stationery pelayanannya sangat baik ramah..ATK nya lengkap harga terjangkau..Pokoknya tidak nyesel belanja ATK disini"</p>
+        <div class="flex items-center gap-3">
+          <div class="w-9 h-9 rounded-full flex items-center justify-center text-white font-bold text-sm flex-shrink-0" style="background-color:#C2410C;">FA</div>
+          <div>
+            <p class="font-bold text-gray-900 text-sm">F Arfian</p>
+            <div class="flex items-center gap-1 mt-0.5">
+              <svg class="w-3 h-3" viewBox="0 0 24 24" fill="none"><path d="M21.805 10.023H12v4.05h5.617c-.242 1.237-.98 2.285-2.088 2.988v2.486h3.381c1.978-1.823 3.12-4.507 3.12-7.69 0-.511-.047-1.007-.125-1.474-.001-.12-.1-.36-.1-.36z" fill="#4285F4"/><path d="M12 22c2.785 0 5.122-.924 6.83-2.503l-3.382-2.486c-.924.619-2.107.985-3.448.985-2.652 0-4.898-1.79-5.7-4.196H2.81v2.566A10.997 10.997 0 0 0 12 22z" fill="#34A853"/><path d="M6.3 13.8A6.6 6.6 0 0 1 5.956 12c0-.625.108-1.233.344-1.8V7.634H2.81A11.003 11.003 0 0 0 1 12c0 1.757.42 3.42 1.81 4.366L6.3 13.8z" fill="#FBBC05"/><path d="M12 5.804c1.493 0 2.833.514 3.886 1.52l2.914-2.914C16.918 2.793 14.582 2 12 2A10.997 10.997 0 0 0 2.81 7.634L6.3 10.2C7.102 7.794 9.348 5.804 12 5.804z" fill="#EA4335"/></svg>
+              <span class="text-xs text-gray-400">Google Review</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Google Maps CTA -->
+    <div class="text-center mt-10 reveal">
+      <a href="https://share.google/i7c07WiT5XYXgJF71" target="_blank" rel="noopener"
+         class="inline-flex items-center gap-2 text-gray-500 hover:text-gray-900 font-semibold text-sm transition-colors underline underline-offset-4">
+        <svg class="w-4 h-4 text-red-400" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+        Lihat semua ulasan di Google Maps →
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════
+     KONTAK & LOKASI + FOOTER
+════════════════════════════════════════ -->
+<section id="kontak" class="py-24 bg-gray-900 text-white">
+  <div class="max-w-6xl mx-auto px-6">
+
+    <div class="text-center mb-16 reveal">
+      <span class="inline-block bg-white/10 text-white/80 font-bold px-4 py-1.5 rounded-full text-sm mb-4 tracking-wide">TEMUKAN KAMI</span>
+      <h2 class="font-display font-extrabold text-4xl md:text-5xl mb-4">Lokasi & Kontak</h2>
+      <p class="text-gray-400 text-lg max-w-xl mx-auto">Kami berlokasi di pusat kota Yogyakarta, mudah dijangkau dari segala penjuru.</p>
+    </div>
+
+    <div class="grid md:grid-cols-2 gap-12 items-start">
+
+      <!-- Map Embed -->
+      <div class="reveal rounded-3xl overflow-hidden shadow-2xl border border-white/10" style="height:360px;">
+        <iframe
+          class="w-full h-full"
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3952.8972350811977!2d110.35824907577312!3d-7.800720477431267!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e7a57900b730f9d%3A0x82b9dc31b997c48!2sJl.%20Ngasem%20No.20%2C%20Patehan%2C%20Kecamatan%20Kraton%2C%20Kota%20Yogyakarta%2C%20Daerah%20Istimewa%20Yogyakarta%2055133!5e0!3m2!1sid!2sid!4v1710000000000!5m2!1sid!2sid"
+          style="border:0;" allowfullscreen="" loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+          title="Lokasi Toko Kita – Jl. Ngasem No. 20 Yogyakarta">
+        </iframe>
+      </div>
+
+      <!-- Contact Info -->
+      <div class="space-y-6 reveal" style="transition-delay:.15s">
+
+        <!-- Address -->
+        <div class="flex gap-4 items-start">
+          <div class="w-12 h-12 bg-pink-DEFAULT/20 rounded-2xl flex items-center justify-center flex-shrink-0">
+            <svg class="w-6 h-6 text-pink-DEFAULT" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+          </div>
+          <div>
+            <p class="font-bold text-white mb-1">Alamat</p>
+            <p class="text-gray-300">Jl. Ngasem No. 20, Yogyakarta</p>
+            <a href="https://share.google/i7c07WiT5XYXgJF71" target="_blank" rel="noopener" class="text-pink-DEFAULT text-sm font-semibold hover:underline mt-1 inline-block">Buka di Google Maps →</a>
+          </div>
+        </div>
+
+        <!-- WhatsApp -->
+        <div class="flex gap-4 items-start">
+          <div class="w-12 h-12 bg-green-DEFAULT/20 rounded-2xl flex items-center justify-center flex-shrink-0">
+            <svg class="w-6 h-6 text-green-DEFAULT" fill="currentColor" viewBox="0 0 24 24"><path d="M20.52 3.48A11.93 11.93 0 0 0 12.01 0C5.37 0 .01 5.37.01 12c0 2.12.55 4.19 1.6 6.01L0 24l6.15-1.61A11.96 11.96 0 0 0 12 24c6.63 0 12-5.37 12-12 0-3.2-1.25-6.22-3.48-8.52z"/></svg>
+          </div>
+          <div>
+            <p class="font-bold text-white mb-1">WhatsApp</p>
+            <a href="https://wa.me/6281393269161" target="_blank" rel="noopener" class="text-gray-300 hover:text-green-DEFAULT transition-colors font-semibold">081393269161</a>
+          </div>
+        </div>
+
+        <!-- Instagram -->
+        <div class="flex gap-4 items-start">
+          <div class="w-12 h-12 bg-pink-DEFAULT/20 rounded-2xl flex items-center justify-center flex-shrink-0">
+            <svg class="w-6 h-6 text-pink-DEFAULT" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+          </div>
+          <div>
+            <p class="font-bold text-white mb-1">Instagram</p>
+            <a href="https://instagram.com/tokokitas" target="_blank" rel="noopener" class="text-gray-300 hover:text-pink-DEFAULT transition-colors font-semibold">@tokokitas</a>
+          </div>
+        </div>
+
+        <!-- Jam Buka -->
+        <div class="flex gap-4 items-start">
+          <div class="w-12 h-12 bg-sky-DEFAULT/20 rounded-2xl flex items-center justify-center flex-shrink-0">
+            <svg class="w-6 h-6 text-sky-DEFAULT" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+          </div>
+          <div>
+            <p class="font-bold text-white mb-1">Jam Operasional</p>
+            <p class="text-gray-300">Senin – Sabtu: 08.00 – 20.00 WIB</p>
+            <p class="text-gray-300">Minggu: 09.00 – 17.00 WIB</p>
+          </div>
+        </div>
+
+        <!-- Big CTA -->
+        <a href="https://wa.me/6281393269161?text=Halo%20Toko%20Kita%2C%20saya%20ingin%20bertanya%20tentang%20layanan%20Anda." target="_blank" rel="noopener"
+           class="flex items-center justify-center gap-3 w-full text-white font-extrabold text-lg py-4 rounded-2xl shadow-lg transition-all mt-4" style="background-color:#9D174D;" onmouseover="this.style.backgroundColor='#7F1D3F'" onmouseout="this.style.backgroundColor='#9D174D'">
+          <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M20.52 3.48A11.93 11.93 0 0 0 12.01 0C5.37 0 .01 5.37.01 12c0 2.12.55 4.19 1.6 6.01L0 24l6.15-1.61A11.96 11.96 0 0 0 12 24c6.63 0 12-5.37 12-12 0-3.2-1.25-6.22-3.48-8.52z"/></svg>
+          Kirim Pesan WhatsApp Sekarang
+        </a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="bg-black text-white py-8 px-6">
+  <div class="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
+    <div class="flex items-center gap-3">
+      <img src="Logo Toko Mentah Rev 1.jpg" alt="Toko Kita" class="h-8 w-8 object-contain rounded-lg" onerror="this.style.display='none'" />
+      <span class="font-display font-bold text-lg">Toko Kita <span class="text-gray-400 font-normal text-sm">Stationery & Photocopy</span></span>
+    </div>
+    <p class="text-gray-500 text-sm text-center">© 2025 Toko Kita Stationery & Photocopy. Jl. Ngasem No. 20 Yogyakarta. All rights reserved.</p>
+    <div class="flex gap-4">
+      <a href="https://instagram.com/tokokitas" target="_blank" rel="noopener" class="w-9 h-9 bg-gray-800 hover:bg-pink-DEFAULT rounded-full flex items-center justify-center transition-colors" aria-label="Instagram">
+        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+      </a>
+      <a href="https://wa.me/6281393269161" target="_blank" rel="noopener" class="w-9 h-9 bg-gray-800 hover:bg-green-DEFAULT rounded-full flex items-center justify-center transition-colors" aria-label="WhatsApp">
+        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M20.52 3.48A11.93 11.93 0 0 0 12.01 0C5.37 0 .01 5.37.01 12c0 2.12.55 4.19 1.6 6.01L0 24l6.15-1.61A11.96 11.96 0 0 0 12 24c6.63 0 12-5.37 12-12 0-3.2-1.25-6.22-3.48-8.52z"/></svg>
+      </a>
+    </div>
+  </div>
+</footer>
+
+</main>
+
+<!-- ════════════════════════════════════════
+     JAVASCRIPT
+════════════════════════════════════════ -->
+<script>
+  // ── Navbar scroll effect ──
+  const navbar = document.getElementById('navbar');
+  window.addEventListener('scroll', () => {
+    navbar.classList.toggle('scrolled', window.scrollY > 40);
+  });
+
+  // ── Mobile menu toggle ──
+  const menuBtn  = document.getElementById('menu-btn');
+  const mobileMenu = document.getElementById('mobile-menu');
+  const iconOpen  = document.getElementById('icon-open');
+  const iconClose = document.getElementById('icon-close');
+
+  menuBtn.addEventListener('click', () => {
+    const isOpen = mobileMenu.classList.toggle('open');
+    iconOpen.classList.toggle('hidden', isOpen);
+    iconClose.classList.toggle('hidden', !isOpen);
+  });
+
+  // Close mobile menu when a link is clicked
+  document.querySelectorAll('.mob-link').forEach(link => {
+    link.addEventListener('click', () => {
+      mobileMenu.classList.remove('open');
+      iconOpen.classList.remove('hidden');
+      iconClose.classList.add('hidden');
+    });
+  });
+
+  // ── Scroll reveal ──
+  const revealEls = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.12 });
+  revealEls.forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>
